@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* .menu li > a {
+  background-color: orange;
+  color: white;
+}
+.menu li > a:active {
+  background-color: red !important;
+  color: white !important;
+}
+.menu li > a:hover {
+  background-color: red !important;
+  color: white !important;
+} */
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -44,3 +57,74 @@
 .read-the-docs {
   color: #888;
 } */
+
+.slick-arrow {
+  display: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+p {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}
+
+.slick-thumb {
+  text-align: start;
+}
+
+.flex-important {
+  display: flex !important;
+}
+
+.front-page-carousel .slick-arrow {
+  display: block !important;
+}
+
+.front-page-carousel .slick-next {
+  right: 3%;
+}
+
+.front-page-carousel .slick-prev {
+  left: 1%;
+  z-index: 1;
+}
+
+.slick-next:before,
+.slick-prev:before {
+  font-size: 3.125rem;
+}
+
+.menu-item {
+  position: relative;
+  /* margin: 0 1rem; */
+  /* padding: 0 1rem; */
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.menu-item::after {
+  content: "";
+  position: absolute;
+  bottom: -3px; /* Position the underline slightly below the text */
+  left: 10%;
+  width: 0;
+  height: 2px; /* Thickness of the underline */
+  background-color: white;
+  transition: width 0.3s ease;
+}
+
+.menu-item:hover::after {
+  width: 80%; /* Animate from left to right */
+}
