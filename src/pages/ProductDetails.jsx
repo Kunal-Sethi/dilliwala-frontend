@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import CarouselDemoImage from "../assets/carousel_demo.webp";
-import ProductDetailsCarousel from "../components/ProductDetailsCarousel";
+import ProductDetailsCarousel from "../components/ProductDetails/ProductDetailsCarousel";
 
 function ProductDetails() {
   return (
@@ -44,18 +44,6 @@ function ProductDetails() {
               <button className="bg-black text-white py-2 px-4 rounded-md mt-5">
                 Add to Cart.
               </button>
-              {/* <p>
-                Lorem ipsum odor amet, consectetuer adipiscing elit. Ultrices
-                sagittis pharetra porta lacus fringilla nascetur nisl maximus
-                fusce. Varius malesuada sit vivamus magna mus. Scelerisque
-                accumsan dapibus consectetur suspendisse diam cursus class.
-                Quisque odio hendrerit gravida tempor dui magna natoque ipsum.
-                At varius dapibus aptent egestas luctus neque interdum massa.
-                Scelerisque luctus curabitur sagittis netus, ornare pretium
-                nisi. Morbi porttitor cubilia mus orci, blandit sollicitudin
-                turpis? Justo dictumst parturient est urna; aliquet fermentum
-                aliquam.
-              </p> */}
             </div>
           </div>
         </div>
