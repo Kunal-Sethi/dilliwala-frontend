@@ -7,6 +7,8 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
 
 function Header() {
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+
   return (
     <>
       <div className="sticky top-0 z-50">
@@ -51,8 +53,8 @@ function Header() {
           </div>
         </div>
         <div className=" flex bg-black items-center justify-center">
-          {/* <div className=" flex bg-orange-600 items-center justify-center"> */}
-          <div className="container">
+          {/* <div className="container"> */}
+          <div className="w-full">
             <ul className="flex p-4">
               <Link to="/category/grocery">
                 <li className="menu-item mx-3 px-3 text-white font-medium hover:cursor-pointer text-base ">
@@ -82,57 +84,59 @@ function Header() {
             </ul>
           </div>
 
-          {/* Login buttons Starts */}
-          <div className="container flex justify-end">
-            <div className="flex w-36">
-              <Link to="/signin" className="px-2">
-                <p className="text-white cursor-pointer">Signin</p>
-              </Link>
-              <Link to="/signup" className="px-2">
-                <p className="text-white cursor-pointer">Signup</p>
-              </Link>
-            </div>
-          </div>
-          {/* Login buttons Ends */}
-
-          <div className="flex">
-            {/* Dropdown start*/}
-            <div className="flex justiy-center items-center">
-              <div className="dropdown dropdown-end self-center">
-                {/* <div tabIndex={0} role="button" className="btn m-1">
-              Click
-            </div> */}
-                <div tabIndex={0} className="avatar placeholder cursor-pointer">
-                  <div className="hover:bg-white hover:text-black text-neutral-content w-12 rounded-full">
-                    <span>GL</span>
-                  </div>
-                </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
-                >
-                  <li>
-                    <Link to="/profile">
-                      <a>Profile</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <a>Logout</a>
-                  </li>
-                </ul>
+          {!isAuthenticated ? (
+            <div className="container flex justify-end">
+              <div className="flex w-36">
+                <Link to="/signin" className="px-2">
+                  <p className="text-white menu-item cursor-pointer">Signin</p>
+                </Link>
+                <Link to="/signup" className="px-2">
+                  <p className="text-white menu-item cursor-pointer">Signup</p>
+                </Link>
               </div>
             </div>
-            {/* Dropdown end */}
-
-            {/* Cart start */}
-            <div className="flex items-center justify-center h-12 w-12 rounded-full cursor-pointer hover:bg-white group">
-              <MdOutlineShoppingCart
-                className="text-white group-hover:text-black"
-                size="20px"
-              />
+          ) : (
+            <div className="flex">
+              <div className="flex justiy-center items-center">
+                <div className="dropdown dropdown-end self-center">
+                  <div
+                    tabIndex={0}
+                    className="avatar placeholder cursor-pointer"
+                  >
+                    <div className="hover:bg-white hover:text-black text-neutral-content w-12 rounded-full">
+                      <span>GL</span>
+                    </div>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                  >
+                    <li>
+                      <Link to="/profile">
+                        <a>Profile</a>
+                      </Link>
+                    </li>
+                    <li>
+                      <a onClick={() => setIsAuthenticated(false)}>Logout</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            {/* Cart end */}
+          )}
+
+          {/* Cart start */}
+          <div className="flex">
+            <Link to="/cart">
+              <div className="flex items-center justify-center h-12 w-12 rounded-full cursor-pointer hover:bg-white group">
+                <MdOutlineShoppingCart
+                  className="text-white group-hover:text-black"
+                  size="20px"
+                />
+              </div>
+            </Link>
           </div>
+          {/* Cart end */}
         </div>
       </div>
     </>
