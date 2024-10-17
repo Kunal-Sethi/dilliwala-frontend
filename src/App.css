@@ -128,3 +128,9 @@ p {
 .menu-item:hover::after {
   width: 80%; /* Animate from left to right */
 }
+
+.instagram-gradient {
+  background: linear-gradient(45deg, #833ab4, #e4405f, #fcaf45, #f58025);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

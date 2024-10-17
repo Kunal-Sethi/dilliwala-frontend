@@ -5,10 +5,10 @@ function HomePage() {
   return (
     <>
       <FrontPageCarousel />
-      <ProductSlider heading="Whats Hot.." />
-      <ProductSlider heading="Whats Trending.." />
-      <ProductSlider heading="New Products.." />
-      <ProductSlider heading="Fresh picks from local farmers.." />
+      <ProductSlider heading="Whats Hot" />
+      <ProductSlider heading="Whats Trending" />
+      <ProductSlider heading="New Products" />
+      <ProductSlider heading="Fresh picks from local farmers" />
     </>
   );
 }
