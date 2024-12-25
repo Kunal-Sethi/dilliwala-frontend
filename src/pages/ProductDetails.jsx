@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import React from "react";
 import CarouselDemoImage from "../assets/carousel_demo.webp";
@@ -11,6 +12,34 @@ import chocolate from "../assets/chocolate.png";
 import oliveoil from "../assets/oliveoil.png";
 
 function ProductDetails() {
+  const nutritionalInfo = {
+    servingSize: "3.0 squares (30 g)",
+    calories: 170,
+    fat: { value: 12, dailyValue: 16 },
+    saturates: { value: 7, dailyValue: 16 },
+    trans: { value: 0.0, dailyValue: 0 },
+    carbohydrate: { value: 14, dailyValue: 0 },
+    sugars: { value: 9, dailyValue: 9 },
+    fiber: { value: 4, dailyValue: 14 },
+    protein: 3,
+    cholesterol: 0,
+    sodium: { value: 10, dailyValue: 1 },
+    potassium: { value: 175, dailyValue: 4 },
+    vitaminsAndMinerals: {
+      calcium: { value: 30, dailyValue: 2 },
+      iron: { value: 1.5, dailyValue: 8 },
+      vitaminA: 0,
+      vitaminC: 0,
+    },
+    ingredients: [
+      "Cocoa Mass",
+      "Sugar",
+      "Cocoa Butter",
+      "Vanilla Flavour",
+      "May Contain: Peanuts, Tree Nuts, Soy, Milk, Sesame",
+    ],
+  };
+
   const [isDragging, setIsDragging] = useState(false);
   return (
     <>
@@ -106,7 +135,7 @@ function ProductDetails() {
         <div className="sm:py-10 sm:px-20 p-5">
           <div>
             <h2 className="text-4xl mb-5">Nutritional Facts</h2>
-            <p>
+            {/* <p>
               Serving Size Per 5.0 oz (142 g) % Daily Value* Calories 100 cal
               Fat 0.2 g 0 % Saturates 0.1 g + Trans 0.0 g 0 % Polyunsaturates
               0.1 g Carbohydrate 26 g 9 % Sugars 22 g Fiber 1 g 4 % Other
@@ -114,10 +143,143 @@ function ProductDetails() {
               mg Sodium 3 mg 0 % % Daily Value* Vitamin A 0 % Vitamin C 6 %
               Calcium 2 % Iron 6 % Vitamin K 20 % Thiamine 8 % Riboflavin 8 %
               Niacin 6 % Vitamin B6 6 % Phosphorus 2 % Magnesium 2 %
-            </p>
+            </p> */}
+
+            <div className="flex justify-center my-10">
+              <div className="flex w-3/5 bg-white border border-gray-300 p-6 space-x-8">
+                {/* Nutrition Facts Section */}
+                <div className="flex-1">
+                  {/* <h2 className="text-2xl font-bold mb-2">Nutrition Facts</h2> */}
+                  <p className="font-semibold mb-4">
+                    Serving Size: {nutritionalInfo.servingSize}
+                  </p>
+                  <hr className="border-t-2 border-black mb-4" />
+                  <div className="text-xl font-bold mb-4">
+                    Calories {nutritionalInfo.calories} cal
+                  </div>
+                  <table className="w-full text-sm">
+                    <tbody>
+                      <tr className="border-b">
+                        <td className="py-1 font-bold">
+                          Fat {nutritionalInfo.fat.value} g
+                        </td>
+                        <td className="text-right">
+                          {nutritionalInfo.fat.dailyValue} %
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="py-1 pl-4">
+                          Saturates {nutritionalInfo.saturates.value} g + Trans{" "}
+                          {nutritionalInfo.trans.value} g
+                        </td>
+                        <td className="text-right">
+                          {nutritionalInfo.saturates.dailyValue} %
+                        </td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-1 font-bold">
+                          Carbohydrate {nutritionalInfo.carbohydrate.value} g
+                        </td>
+                        <td className="text-right">
+                          {nutritionalInfo.carbohydrate.dailyValue} %
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="py-1 pl-4">
+                          Sugars {nutritionalInfo.sugars.value} g
+                        </td>
+                        <td className="text-right">
+                          {nutritionalInfo.sugars.dailyValue} %
+                        </td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-1 pl-4">
+                          Fiber {nutritionalInfo.fiber.value} g
+                        </td>
+                        <td className="text-right">
+                          {nutritionalInfo.fiber.dailyValue} %
+                        </td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-1 font-bold">
+                          Protein {nutritionalInfo.protein} g
+                        </td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-1 font-bold">
+                          Cholesterol {nutritionalInfo.cholesterol} mg
+                        </td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-1 font-bold">
+                          Sodium {nutritionalInfo.sodium.value} mg
+                        </td>
+                        <td className="text-right">
+                          {nutritionalInfo.sodium.dailyValue} %
+                        </td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-1 font-bold">
+                          Potassium {nutritionalInfo.potassium.value} mg
+                        </td>
+                        <td className="text-right">
+                          {nutritionalInfo.potassium.dailyValue} %
+                        </td>
+                      </tr>
+                      {Object.entries(nutritionalInfo.vitaminsAndMinerals).map(
+                        ([key, { value, dailyValue }]) => (
+                          <tr key={key} className="border-b">
+                            <td className="py-1 font-bold">
+                              {key.replace(/([A-Z])/g, " $1").trim()} {value} mg
+                            </td>
+                            <td className="text-right">{dailyValue} %</td>
+                          </tr>
+                        )
+                      )}
+                    </tbody>
+                  </table>
+                  <hr className="border-t-2 border-black mt-4 mb-2" />
+                  <p className="text-xs text-gray-600">
+                    *5% or less is a little, 15% or more is a lot
+                  </p>
+                </div>
+
+                {/* Ingredients Section */}
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold mb-2">Ingredients</h3>
+                  <p className="text-sm text-gray-700">
+                    {nutritionalInfo.ingredients.join(" • ")}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         {/* Nutrition facts ends */}
+
+        <div className="container px-20 mx-auto">
+          <hr className=" mx-auto border-1 border-black" />
+        </div>
+
+        {/* Disclaimer Starts */}
+        <div className="sm:py-10 sm:px-20 p-5">
+          <div>
+            <h2 className="text-4xl mb-5">Disclaimer</h2>
+            <p>
+              We do our best to provide accurate information regarding
+              ingredients, nutritional details, product images, and descriptions
+              on our app/website. However, as manufacturers may update this
+              information at any time, we strongly advise you to always check
+              the product packaging for the latest and most accurate details on
+              ingredients, nutrition, or other product information (including
+              warnings) before using or consuming any items. If you have food
+              allergies or sensitivities, please review the actual product
+              packaging to ensure the product's safety for your needs. Do not
+              rely solely on the information provided on this app/website.
+            </p>
+          </div>
+        </div>
+        {/* Disclaimer Ends */}
 
         <div className="container px-20 mx-auto">
           <hr className=" mx-auto border-1 border-black" />
