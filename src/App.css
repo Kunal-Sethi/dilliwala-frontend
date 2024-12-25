@@ -134,3 +134,66 @@ p {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* Nutritional facts css starts */
+/* .nutrition-facts {
+  width: 300px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.nutrition-facts h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.nutrition-facts hr {
+  border: 1px solid #000;
+  margin: 10px 0;
+}
+
+.calories-section {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+table {
+  width: 100%;
+  margin: 10px 0;
+  border-collapse: collapse;
+}
+
+table td {
+  padding: 2px 0;
+}
+
+.daily-value {
+  text-align: right;
+}
+
+.daily-value-note {
+  font-size: 12px;
+  margin-top: 10px;
+  color: #555;
+}
+
+.ingredients {
+  margin-top: 15px;
+}
+
+.ingredients h3 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.ingredients p {
+  font-size: 14px;
+  color: #555;
+} */
+
+/* Nutritional facts css ends */

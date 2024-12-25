@@ -7,6 +7,7 @@ export default {
     extend: {
       colors: {
         logoBlue: "#080652",
+        signInColor: "#f5f4f9",
       },
     },
   },
