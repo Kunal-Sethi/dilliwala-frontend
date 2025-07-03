@@ -1,24 +1,47 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { scrollToTop } from "../../utils/scrollToTop";
 import Logo from "../../assets/dilliwalaLogoLowQuality.jpeg";
+import { useNavigate } from "react-router-dom";
+import { resetError } from "../../redux/features/auth/authSlice";
+import { loginUser } from "../../redux/features/auth/authThunkActions";
 
 function Signin() {
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevents the default form submission behavior
-    alert("Form is submitted");
-  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading, error, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     scrollToTop();
-  });
+    if (isAuthenticated) {
+      console.log("navigating from here");
+      navigate("/");
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    // To clear the error state on dismount
+    return () => dispatch(resetError());
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginUser({ email, password }));
+  };
 
   return (
     <>
       <div className="flex min-h-screen">
-        <div className="w-3/5  bg-signInColor">
+        <div className="w-3/5 flex justify-center items-center bg-signInColor">
           <Link to="/" className="" href="/">
-            <img src={Logo} className="w-20" alt="Logo" />
+            <img src={Logo} className="w-full" alt="Logo" />
           </Link>
         </div>
         <div className="w-2/5 container mx-auto">
@@ -30,6 +53,12 @@ function Signin() {
               <p className="text-center text-gray-500 mb-6">
                 Please sign in to your account.
               </p>
+              {error && (
+                <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">
+                  {error}
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label
@@ -39,10 +68,17 @@ function Signin() {
                     Email Address
                   </label>
                   <input
+                    value={email}
                     type="email"
                     id="email"
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    onChange={(e) => setEmail(e.target.value)}
+                    className={`w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 ${
+                      error
+                        ? "border border-red-500 bg-red-50 focus:ring-red-500"
+                        : "border border-gray-300 bg-gray-50 focus:ring-blue-500"
+                    }`}
+                    // className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -54,10 +90,17 @@ function Signin() {
                     Password
                   </label>
                   <input
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     type="password"
                     id="password"
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className={`w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 ${
+                      error
+                        ? "border border-red-500 bg-red-50 focus:ring-red-500"
+                        : "border border-gray-300 bg-gray-50 focus:ring-blue-500"
+                    }`}
+                    // className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter your password"
                   />
                 </div>

@@ -27,7 +27,7 @@ function CardComponent({
         <Link onClick={handleClick} to="/product">
           <div>
             <div
-              className="flex-none px-5 pt-5"
+              className="flex-none  pt-5"
               style={{ height: "200px", width: "200px" }}
             >
               <img
