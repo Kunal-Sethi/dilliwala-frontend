@@ -5,13 +5,31 @@ import { IoLocation } from "react-icons/io5";
 import { IoMdTime } from "react-icons/io";
 import { MdOutlineShoppingCart, MdMenu } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../redux/features/auth/authThunkActions";
+import InlineLoader from "../Loader/InlineLoader";
+import Loader from "../Loader/FullScreenLoader";
 
 function Header() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const dispatch = useDispatch();
+  const { userInfo, loading, isAuthenticated, error } = useSelector(
+    (state) => state.auth
+  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenuOnClick = () => {
     setIsMenuOpen(false);
   };
+
+  const userName = userInfo?.data?.fullName;
+  const userInitials = userName
+    ?.trim()
+    .split(" ")
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+
+  if (loading) return <Loader />;
 
   return (
     <>
@@ -128,7 +146,7 @@ function Header() {
                     className="avatar placeholder cursor-pointer"
                   >
                     <div className="hover:bg-white hover:text-black text-neutral-content w-12 rounded-full">
-                      <span>GL</span>
+                      <span>{userInitials}</span>
                     </div>
                   </div>
                   <ul
@@ -137,11 +155,11 @@ function Header() {
                   >
                     <li>
                       <Link to="/profile" onClick={closeMenuOnClick}>
-                        <a>Profile</a>
+                        <h1>Profile</h1>
                       </Link>
                     </li>
                     <li>
-                      <a onClick={() => setIsAuthenticated(false)}>Logout</a>
+                      <h1 onClick={() => dispatch(logoutUser())}>Logout</h1>
                     </li>
                   </ul>
                 </div>
