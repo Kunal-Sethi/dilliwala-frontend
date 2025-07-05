@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser } from "./authThunkActions.js";
+import { checkAuthStatus, loginUser, logoutUser } from "./authThunkActions.js";
 
 const initialState = {
   userInfo: null,
@@ -31,6 +31,34 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         (state.loading = false), (state.error = action.payload);
+      });
+
+    // Logout
+    builder.addCase(logoutUser.fulfilled, (state) => {
+      (state.userInfo = null),
+        (state.error = null),
+        (state.isAuthenticated = false),
+        (state.loading = false);
+    });
+
+    // Check Auth Status
+    builder
+      .addCase(checkAuthStatus.pending, (state) => {
+        (state.userInfo = null),
+          (state.error = null),
+          (state.isAuthenticated = false),
+          (state.loading = true);
+      })
+      .addCase(checkAuthStatus.fulfilled, (state, action) => {
+        (state.userInfo = action.payload),
+          (state.loading = false),
+          (state.isAuthenticated = true),
+          (state.error = null);
+      })
+      .addCase(checkAuthStatus.rejected, (state, action) => {
+        (state.loading = false),
+          (state.isAuthenticated = false),
+          (state.error = null);
       });
   },
 });
