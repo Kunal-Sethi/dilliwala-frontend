@@ -7,7 +7,12 @@ import { scrollToTop } from "../../utils/scrollToTop";
 import Logo from "../../assets/dilliwalaLogoLowQuality.jpeg";
 import { useNavigate } from "react-router-dom";
 import { resetError } from "../../redux/features/auth/authSlice";
-import { loginUser } from "../../redux/features/auth/authThunkActions";
+import {
+  loginUser,
+  checkAuthStatus,
+} from "../../redux/features/auth/authThunkActions";
+import Loader from "../../components/Loader/FullScreenLoader";
+import InlineLoader from "../../components/Loader/InlineLoader";
 
 function Signin() {
   const navigate = useNavigate();
@@ -19,22 +24,31 @@ function Signin() {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    scrollToTop();
-    if (isAuthenticated) {
-      console.log("navigating from here");
-      navigate("/");
-    }
-  }, [isAuthenticated]);
-
-  useEffect(() => {
     // To clear the error state on dismount
     return () => dispatch(resetError());
   }, []);
 
+  useEffect(() => {
+    // resetError();
+    scrollToTop();
+    dispatch(checkAuthStatus())
+      .unwrap()
+      .then(() => {
+        navigate("/");
+      })
+      .catch(() => {});
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser({ email, password }));
+    dispatch(loginUser({ email, password }))
+      .unwrap()
+      .then(() => {
+        navigate("/");
+      });
   };
+
+  // if (loading) return <Loader />;
 
   return (
     <>
@@ -78,7 +92,6 @@ function Signin() {
                         ? "border border-red-500 bg-red-50 focus:ring-red-500"
                         : "border border-gray-300 bg-gray-50 focus:ring-blue-500"
                     }`}
-                    // className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -100,24 +113,10 @@ function Signin() {
                         ? "border border-red-500 bg-red-50 focus:ring-red-500"
                         : "border border-gray-300 bg-gray-50 focus:ring-blue-500"
                     }`}
-                    // className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter your password"
                   />
                 </div>
                 <div className="flex justify-between items-center">
-                  {/* <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="remember"
-                    className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label
-                    htmlFor="remember"
-                    className="ml-2 block text-sm text-gray-900"
-                  >
-                    Remember me
-                  </label>
-                </div> */}
                   <Link
                     to="/forgot-password"
                     className="text-sm text-blue-600 hover:underline focus:outline-none "
@@ -126,10 +125,12 @@ function Signin() {
                   </Link>
                 </div>
                 <button
+                  disabled={loading}
                   type="submit"
-                  className="w-full py-2 px-4 text-white bg-black hover:bg-gray-600 rounded-lg font-medium transition duration-200 focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full py-2 px-4 text-white bg-black hover:bg-gray-600 rounded-lg font-medium transition duration-200 focus:outline-none focus:ring-2 focus:ring-black flex justify-center items-center"
                 >
                   Sign In
+                  {loading && <InlineLoader />}
                 </button>
               </form>
               <p className="text-center text-gray-500 mt-6">
