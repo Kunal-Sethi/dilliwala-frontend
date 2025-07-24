@@ -1,8 +1,25 @@
-# React + Vite
+# 🛒 Dilliwala - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dilliwala is a full-featured e-commerce grocery web application built with **React**, **Redux Toolkit**, and **Tailwind CSS**. It supports customer browsing, cart management, authentication, and a complete admin dashboard.
 
-Currently, two official plugins are available:
+## 🔗 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🧑‍💼 Customer Login/Signup
+- 🛍️ Browse Products by Categories
+- 🛒 Add to Cart (with quantity)
+- 💰 Dynamic Price Calculation
+- 🔐 Protected Routes (User & Admin)
+- 📦 View Orders & Wishlist
+- 📊 Admin Dashboard: Manage Products, Orders, Inventory
+- 📱 Fully Responsive UI
+
+## 🚀 Tech Stack
+
+- **React.js**
+- **Redux Toolkit**
+- **React Router DOM**
+- **Axios**
+- **Tailwind CSS**
+- **React Toastify**
+- **JWT Authentication**
+- **Heroicons & React Slick**
