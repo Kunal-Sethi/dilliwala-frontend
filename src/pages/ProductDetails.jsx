@@ -10,6 +10,7 @@ import atta from "../assets/atta.png";
 import fererro from "../assets/fererro.jpeg";
 import chocolate from "../assets/chocolate.png";
 import oliveoil from "../assets/oliveoil.png";
+import ProductSlider2 from "../components/HomePage/ProductSlider2";
 
 function ProductDetails() {
   const nutritionalInfo = {
@@ -286,7 +287,7 @@ function ProductDetails() {
         </div>
 
         {/* Related Items starts */}
-        <div className="mb-24">
+        {/* <div className="mb-24">
           <div>
             <h2 className="sm:py-10 sm:px-20 p-5 text-4xl mb-5">
               Related Items
@@ -330,7 +331,8 @@ function ProductDetails() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
+        <ProductSlider2 heading="Related Items" />
         {/* Related Items ends */}
       </div>
     </>
