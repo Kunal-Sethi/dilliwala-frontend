@@ -1,11 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
-import { checkAuthStatus, loginUser, logoutUser } from "./authThunkActions.js";
+import {
+  checkAuthStatus,
+  loginUser,
+  logoutUser,
+  registerUser,
+} from "./authThunkActions.js";
 
 const initialState = {
   userInfo: null,
   isAuthenticated: false,
-  loading: false,
+  loading: true,
   error: null,
 };
 
@@ -18,7 +23,7 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // Login
+    // Login User
     builder
       .addCase(loginUser.pending, (state) => {
         (state.loading = true), (state.error = null);
@@ -33,7 +38,7 @@ const authSlice = createSlice({
         (state.loading = false), (state.error = action.payload);
       });
 
-    // Logout
+    // Logout User
     builder.addCase(logoutUser.fulfilled, (state) => {
       (state.userInfo = null),
         (state.error = null),
@@ -59,6 +64,23 @@ const authSlice = createSlice({
         (state.loading = false),
           (state.isAuthenticated = false),
           (state.error = null);
+      });
+
+    // Register User
+    builder
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        (state.userInfo = action.payload),
+          (state.loading = false),
+          (state.isAuthenticated = true),
+          (state.error = null);
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        (state.loading = false),
+          (state.error = action.payload),
+          (state.isAuthenticated = false);
       });
   },
 });

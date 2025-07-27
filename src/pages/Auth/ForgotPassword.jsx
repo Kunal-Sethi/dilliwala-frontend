@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { scrollToTop } from "../../utils/scrollToTop";
 import Logo from "../../assets/dilliwalaLogoLowQuality.jpeg";
+import NewLogo from "../../assets/dilliwalaLogoLowQuality-removebg-preview.png";
 
 function ForgotPassword() {
   const handleSubmit = (e) => {
@@ -16,13 +18,18 @@ function ForgotPassword() {
   return (
     <>
       <div className="flex min-h-screen">
-        <div className="w-3/5  bg-signInColor">
+        <div className="lg:w-3/5 hidden lg:flex justify-center items-center bg-signInColor">
           <Link to="/" className="" href="/">
-            <img src={Logo} className="w-20" alt="Logo" />
+            <img src={NewLogo} className="w-full" alt="Logo" />
           </Link>
         </div>
-        <div className="w-2/5 container mx-auto">
-          <div className="flex justify-center items-center min-h-screen">
+        <div className="lg:w-2/5 container mx-auto">
+          <div className="flex flex-col justify-center items-center h-screen">
+            <div className="flex justify-center items-center">
+              <Link to="/" className="w-1/2 lg:hidden" href="/">
+                <img src={NewLogo} className="" alt="Logo" />
+              </Link>
+            </div>
             <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
               <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
                 Forgot Password?

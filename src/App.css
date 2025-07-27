@@ -103,6 +103,10 @@ p {
   font-size: 3.125rem;
 }
 
+.front-page-carousel-swiper .swiper-button-prev {
+  color: black !important;
+}
+
 .menu-item {
   position: relative;
   /* margin: 0 1rem; */
@@ -110,7 +114,7 @@ p {
   color: white;
   font-weight: 500;
   cursor: pointer;
-  font-size: 1rem;
+  /* font-size: 1rem; */
   transition: color 0.3s ease;
 }
 

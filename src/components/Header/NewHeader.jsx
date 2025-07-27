@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../assets/dilliwalaLogoLowQuality.jpeg";
 import { IoLocation } from "react-icons/io5";
 import { IoMdTime } from "react-icons/io";
 import { MdOutlineShoppingCart, MdMenu } from "react-icons/md";
+import { FaRegUser } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/features/auth/authThunkActions";
@@ -12,22 +13,12 @@ import Loader from "../Loader/FullScreenLoader";
 
 function Header() {
   const dispatch = useDispatch();
-  const { userInfo, loading, isAuthenticated, error } = useSelector(
-    (state) => state.auth
-  );
+  const { loading, isAuthenticated } = useSelector((state) => state.auth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const closeMenuOnClick = () => {
     setIsMenuOpen(false);
   };
-
-  const userName = userInfo?.data?.fullName;
-  const userInitials = userName
-    ?.trim()
-    .split(" ")
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join("")
-    .toUpperCase();
 
   if (loading) return <Loader />;
 
@@ -145,8 +136,11 @@ function Header() {
                     tabIndex={0}
                     className="avatar placeholder cursor-pointer"
                   >
-                    <div className="hover:bg-white hover:text-black text-neutral-content w-12 rounded-full">
-                      <span>{userInitials}</span>
+                    <div className="flex items-center justify-center h-12 w-12 rounded-full cursor-pointer hover:bg-white group">
+                      <FaRegUser
+                        className="text-white group-hover:text-black"
+                        size="18px"
+                      />
                     </div>
                   </div>
                   <ul

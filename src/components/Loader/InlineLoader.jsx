@@ -1,9 +1,12 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";
 
-function InlineLoader() {
+function InlineLoader({ color = "white" }) {
   return (
-    <span className="ml-2 w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+    <span
+      className={`ml-2 w-4 h-4 border-2 border-${color} border-t-transparent rounded-full animate-spin`}
+    ></span>
   );
 }
 

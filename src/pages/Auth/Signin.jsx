@@ -1,20 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { Link } from "react-router-dom";
+import { Link, replace, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { scrollToTop } from "../../utils/scrollToTop";
 import Logo from "../../assets/dilliwalaLogoLowQuality.jpeg";
+import NewLogo from "../../assets/dilliwalaLogoLowQuality-removebg-preview.png";
 import { useNavigate } from "react-router-dom";
 import { resetError } from "../../redux/features/auth/authSlice";
 import {
   loginUser,
   checkAuthStatus,
 } from "../../redux/features/auth/authThunkActions";
-import Loader from "../../components/Loader/FullScreenLoader";
 import InlineLoader from "../../components/Loader/InlineLoader";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 function Signin() {
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, error, isAuthenticated } = useSelector(
@@ -22,6 +25,9 @@ function Signin() {
   );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const from = location.state?.from?.pathname;
 
   useEffect(() => {
     // To clear the error state on dismount
@@ -29,7 +35,6 @@ function Signin() {
   }, []);
 
   useEffect(() => {
-    // resetError();
     scrollToTop();
     dispatch(checkAuthStatus())
       .unwrap()
@@ -44,23 +49,28 @@ function Signin() {
     dispatch(loginUser({ email, password }))
       .unwrap()
       .then(() => {
-        navigate("/");
+        navigate(from ? from : "/", { replace: true });
+        // navigate("/");
       });
   };
 
-  // if (loading) return <Loader />;
-
   return (
     <>
-      <div className="flex min-h-screen">
-        <div className="w-3/5 flex justify-center items-center bg-signInColor">
+      <div className="flex flex-col lg:flex-row">
+        <div className="lg:w-3/5 hidden lg:flex justify-center items-center bg-signInColor">
           <Link to="/" className="" href="/">
-            <img src={Logo} className="w-full" alt="Logo" />
+            {/* <img src={Logo} className="w-full" alt="Logo" /> */}
+            <img src={NewLogo} className="w-full" alt="Logo" />
           </Link>
         </div>
-        <div className="w-2/5 container mx-auto">
-          <div className="flex justify-center items-center min-h-screen">
-            <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
+        <div className="lg:w-2/5 container mx-auto">
+          <div className="flex flex-col justify-center items-center h-screen">
+            <div className="flex justify-center items-center">
+              <Link to="/" className="w-1/2 lg:hidden" href="/">
+                <img src={NewLogo} className="" alt="Logo" />
+              </Link>
+            </div>
+            <div className="w-full max-w-md bg-white rounded-lg shadow-lg mx-5 p-8">
               <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
                 Welcome Back!
               </h1>
@@ -79,13 +89,13 @@ function Signin() {
                     htmlFor="email"
                     className="block text-sm font-medium text-gray-700 mb-2"
                   >
-                    Email Address
+                    Email Address <span className="text-red-500">*</span>
                   </label>
                   <input
                     value={email}
                     type="email"
                     id="email"
-                    required
+                    // required
                     onChange={(e) => setEmail(e.target.value)}
                     className={`w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 ${
                       error
@@ -100,21 +110,36 @@ function Signin() {
                     htmlFor="password"
                     className="block text-sm font-medium text-gray-700 mb-2"
                   >
-                    Password
+                    Password <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    type="password"
-                    id="password"
-                    required
-                    className={`w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 ${
-                      error
-                        ? "border border-red-500 bg-red-50 focus:ring-red-500"
-                        : "border border-gray-300 bg-gray-50 focus:ring-blue-500"
-                    }`}
-                    placeholder="Enter your password"
-                  />
+                  <div className="relative">
+                    <input
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      className={`w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 ${
+                        error
+                          ? "border border-red-500 bg-red-50 focus:ring-red-500"
+                          : "border border-gray-300 bg-gray-50 focus:ring-blue-500"
+                      }`}
+                      placeholder="Enter your password"
+                    />
+                    {/* <span className="absolute right-3 top-3.5 "> */}
+                    <span className="absolute right-3 top-1/2 transform -translate-y-1/2 ">
+                      {showPassword ? (
+                        <FaEyeSlash
+                          cursor="pointer"
+                          onClick={() => setShowPassword((prev) => !prev)}
+                        />
+                      ) : (
+                        <FaEye
+                          cursor="pointer"
+                          onClick={() => setShowPassword((prev) => !prev)}
+                        />
+                      )}
+                    </span>
+                  </div>
                 </div>
                 <div className="flex justify-between items-center">
                   <Link

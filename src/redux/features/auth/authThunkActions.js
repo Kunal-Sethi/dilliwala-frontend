@@ -24,6 +24,29 @@ const loginUser = createAsyncThunk(
   }
 );
 
+// SIGNUP ThunkAction
+const registerUser = createAsyncThunk(
+  "auth/registerUser",
+  async ({ fullName, email, password, contact }, { rejectWithValue }) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/users/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fullName, email, password, contact }),
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log("Getting rejected");
+        return rejectWithValue(data.message);
+      }
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 // LOGOUT ThunkAction
 const logoutUser = createAsyncThunk(
   "auth/logoutUser",
@@ -44,6 +67,7 @@ const logoutUser = createAsyncThunk(
   }
 );
 
+// CHECK AUTH STATUS ThunkAction
 const checkAuthStatus = createAsyncThunk(
   "auth/checkAuthStatus",
   async (_, { rejectWithValue }) => {
@@ -63,4 +87,4 @@ const checkAuthStatus = createAsyncThunk(
   }
 );
 
-export { loginUser, logoutUser, checkAuthStatus };
+export { loginUser, logoutUser, checkAuthStatus, registerUser };

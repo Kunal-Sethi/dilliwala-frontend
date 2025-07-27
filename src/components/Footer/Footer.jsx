@@ -1,16 +1,33 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaFacebook } from "react-icons/fa6";
-import { FaSquareInstagram } from "react-icons/fa6";
-import { FaTwitter } from "react-icons/fa6";
+import { AiFillInstagram } from "react-icons/ai";
+import { AiFillFacebook } from "react-icons/ai";
+import { AiFillTwitterSquare } from "react-icons/ai";
+import { RiTwitterXFill } from "react-icons/ri";
 
 function Footer() {
   return (
     <>
-      <div className="bg-black p-5 ">
-        <div className="flex">
-          <div className="text-white w-1/3 px-16">
+      <div className="bg-black p-5">
+        <div className="flex flex-col">
+          <div className="flex justify-end w-full">
+            <div className="p-1 md:p-2">
+              <AiFillFacebook size="25px" fill="white" />
+            </div>
+            <div className="p-1 md:p-2">
+              <AiFillInstagram fill="white" size="25px" />
+            </div>
+            <div className="p-1 md:p-2">
+              <RiTwitterXFill fill="white" size="22px" />
+            </div>
+          </div>
+          {/* Mobile Footer */}
+          <div className="block md:hidden">Mobile</div>
+
+          {/* Desktop Footer */}
+          <div className="hidden md:block">Desktop</div>
+          {/* <div className="text-white w-1/3 px-16">
             <Link to="/">Dilliwala Global Foods</Link>
           </div>
           <div className="text-white w-2/3 flex justify-evenly">
@@ -51,7 +68,7 @@ function Footer() {
                 <FaSquareInstagram size="25px" className="instagram-gradient" />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
