@@ -13,12 +13,15 @@ import Layout from "./components/Layout/Layout";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { checkAuthStatus } from "./redux/features/auth/authThunkActions";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import { getCart } from "./redux/features/cart/cartThunkActions";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkAuthStatus()).unwrap().catch();
+    dispatch(getCart()).unwrap().catch();
   }, [dispatch]);
 
   return (
@@ -36,8 +39,12 @@ function App() {
           <Route path="/category">
             <Route path="grocery" element={<ProductDetails />} />
           </Route>
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/profile" element={<Profile />} />
+
+          {/* Protected Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
 
           {/* Admin Routes */}
         </Routes>
